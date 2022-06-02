@@ -15,7 +15,7 @@ const guessBot = function () {
     } else if (+userNumber < randomNumber) {
       alert("Загаданное число больше!");
       play();
-    } else if (+userNumber === randomNumber) {
+    } else {
       alert("Поздравляю, Вы угадали!!!");
     }
   };
@@ -27,7 +27,9 @@ const goPlay = function () {
   let quest = confirm("Хочешь поиграть?!");
   if (quest === true) {
     play();
-  } else alert("До свидания!");
+  } else {
+    alert("До свидания!");
+  }
 };
 
 goPlay();
