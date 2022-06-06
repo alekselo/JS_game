@@ -1,35 +1,38 @@
 "use strict";
 
-const guessBot = function () {
+const guessBot = function (counter) {
   let randomNumber = Math.round(Math.random() * 101);
-  return function () {
+  const action = function () {
     let userNumber = prompt("Угадай число от 0 до 100!");
     if (userNumber === null) {
       alert("Игра окончена!");
+    } else if (counter === 0) {
+      if (confirm("Попытки закончились, хотите сыграть еще?") === true) {
+        guessBot(9);
+      } else {
+        alert("До свидания!");
+      }
     } else if (isNaN(userNumber)) {
-      alert("Введи число!");
-      play();
+      counter--;
+      alert("Введи число! Осталось попыток: " + (counter + 1));
+      action();
     } else if (+userNumber > randomNumber) {
-      alert("Загаданное число меньше!");
-      play();
+      counter--;
+      alert("Загаданное число меньше! Осталось попыток: " + (counter + 1));
+      action();
     } else if (+userNumber < randomNumber) {
-      alert("Загаданное число больше!");
-      play();
-    } else {
-      alert("Поздравляю, Вы угадали!!!");
+      counter--;
+      alert("Загаданное число больше! Осталось попыток: " + (counter + 1));
+      action();
+    } else if (+userNumber === randomNumber) {
+      if (confirm("Поздравляю, Вы угадали! Хотели бы сыграть еще?") === true) {
+        guessBot(9);
+      } else {
+        alert("До свидания!");
+      }
     }
   };
+  action();
 };
 
-const play = guessBot();
-
-const goPlay = function () {
-  let quest = confirm("Хочешь поиграть?!");
-  if (quest === true) {
-    play();
-  } else {
-    alert("До свидания!");
-  }
-};
-
-goPlay();
+guessBot(9);
